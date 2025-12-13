@@ -59,7 +59,7 @@ const innovationItems = [
 export default function GalleryPage() {
   return (
     <MainLayout>
-      <section className="max-w-7xl mx-auto px-6 py-16 bg-gray-50">
+      <section className="max-w-7xl mx-auto px-6 py-16 bg-gray-50 mt-10">
         {/* === HEADER GALERI PREMIUM === */}
         <div className="text-center mb-16 border-b pb-8">
           <span className="text-blue-600 text-sm font-semibold uppercase tracking-widest">
