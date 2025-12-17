@@ -10,7 +10,7 @@ const innovationItems = [
     title: "Sistem Irigasi Pintar Berbasis IoT",
     category: "Teknologi & Lingkungan",
     slug: "irigasi-pintar",
-    image: "/images/galeri/inovasi-iot.jpg", // Ganti dengan path gambar Anda
+    image: "wajah-plastik.webp", 
     student: "Kelompok Sains Kelas XII",
   },
   {
@@ -18,7 +18,7 @@ const innovationItems = [
     title: "Pemanfaatan Limbah Cangkang Kelapa Menjadi Arang Briket",
     category: "Energi Terbarukan",
     slug: "briket-kelapa",
-    image: "/images/galeri/briket-kelapa.jpg",
+    image: "wajah-plastik1.webp",
     student: "Eko Pratama (Kelas XI)",
   },
   {
@@ -26,32 +26,8 @@ const innovationItems = [
     title: "Aplikasi Mobile Informasi Pariwisata Desa Selat",
     category: "Digital & Kreatif",
     slug: "app-pariwisata",
-    image: "/images/galeri/app-pariwisata.jpg",
+    image: "wajah-plastik2.webp",
     student: "Tim Developer Muda",
-  },
-  {
-    id: 4,
-    title: "Pupuk Kompos Organik Super Cepat",
-    category: "Pertanian",
-    slug: "pupuk-organik",
-    image: "/images/galeri/pupuk-organik.jpg",
-    student: "Siswa/i Jurusan Agrikultur",
-  },
-  {
-    id: 5,
-    title: "Desain dan Implementasi Web Desa Interaktif",
-    category: "Digital & Kreatif",
-    slug: "web-desa",
-    image: "/images/galeri/web-desa.jpg",
-    student: "Putu Ayu (Kelas X)",
-  },
-  {
-    id: 6,
-    title: "Alat Pengukur PH Tanah Portabel",
-    category: "Teknologi & Pertanian",
-    slug: "ph-meter",
-    image: "/images/galeri/ph-meter.jpg",
-    student: "Kelompok Fisika Terapan",
   },
 ];
 
@@ -104,6 +80,12 @@ export default function GalleryPage() {
                 {/* Judul Proyek */}
                 <h3 className="text-xl font-bold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300 line-clamp-2">
                   {item.title}
+                </h3>
+              </div>
+               <div className="p-6">
+                {/* Judul Proyek */}
+                <h3 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300">
+                  {item.student}
                 </h3>
               </div>
             </Link>

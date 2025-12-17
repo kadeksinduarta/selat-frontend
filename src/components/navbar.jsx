@@ -88,7 +88,7 @@ export default function Navbar() {
                 href={item.path}
                 className={`px-4 py-2 rounded-full text-sm transition ${active
                     ? "bg-white shadow text-slate-900 font-medium"
-                    : "text-white-700 hover:bg-white/60"
+                    : "text-black hover:bg-white/60"
                   }`}
               >
                 {item.name}

@@ -1,7 +1,40 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { apiGet } from "../utils/api";
 
 export default function Hero() {
+  const [stats, setStats] = useState({
+    productCount: 0,
+    articleCount: 0,
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadStats();
+  }, []);
+
+  const loadStats = async () => {
+    try {
+      const products = await apiGet("products");
+      const articles = await apiGet("articles");
+
+      setStats({
+        productCount: products?.length || 0,
+        articleCount: articles?.data?.length || 0,
+      });
+    } catch (error) {
+      console.error("Gagal mengambil data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
       {/* Animated Background Elements */}
@@ -33,10 +66,13 @@ export default function Hero() {
         {/* Description */}
         <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed animate-slide-up animation-delay-200">
           Temukan informasi terkini tentang desa kami, jelajahi{" "}
-          <span className="font-semibold text-green-600">produk lokal unggulan</span>,
-          baca <span className="font-semibold text-blue-600">artikel</span> terbaru,
-          dan lihat <span className="font-semibold text-purple-600">galeri</span>{" "}
-          kegiatan desa.
+          <span className="font-semibold text-green-600">
+            produk lokal unggulan
+          </span>
+          , baca <span className="font-semibold text-blue-600">artikel</span>{" "}
+          terbaru, dan lihat{" "}
+          <span className="font-semibold text-purple-600">galeri</span> kegiatan
+          desa.
         </p>
 
         {/* CTA Buttons */}
@@ -61,18 +97,18 @@ export default function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto animate-fade-in animation-delay-600">
+        <div className="mt-16 grid grid-cols-2 max-w-[40%] mx-auto animate-fade-in animation-delay-600">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2">100+</div>
+            <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2">
+              {stats.productCount}
+            </div>
             <div className="text-sm text-gray-600">Produk Lokal</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">50+</div>
+            <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+              {stats.articleCount}
+            </div>
             <div className="text-sm text-gray-600">Artikel</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-purple-600 mb-2">1000+</div>
-            <div className="text-sm text-gray-600">Warga</div>
           </div>
         </div>
       </div>
@@ -80,13 +116,24 @@ export default function Hero() {
       {/* Custom Animations */}
       <style jsx>{`
         @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
         }
         @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
         @keyframes slide-up {
           from {

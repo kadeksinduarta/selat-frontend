@@ -71,7 +71,7 @@ export default function About() {
             </div>
 
             <div className="pt-4 border-t border-slate-100 mt-8 flex sm:flex-row flex-col gap-6 sm:items-center">
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 <div className="p-3 bg-slate-100 rounded-full">
                   <Users className="text-slate-600" size={24} />
                 </div>
@@ -80,7 +80,7 @@ export default function About() {
                   <div className="text-sm text-slate-500">Penduduk Aktif</div>
                 </div>
               </div>
-              <div className="w-px h-12 bg-slate-200 hidden sm:block"></div>
+              <div className="w-px h-12 bg-slate-200 hidden sm:block"></div> */}
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-slate-100 rounded-full">
                   <Leaf className="text-slate-600" size={24} />
@@ -99,14 +99,14 @@ export default function About() {
               <div className="space-y-4 mt-12">
                 <div className="rounded-2xl overflow-hidden shadow-lg h-64 transform hover:scale-105 transition duration-500">
                   <img
-                    src="https://images.unsplash.com/photo-1542601906990-24ccd54b8689?w=800&q=80"
+                    src="pemandangan.jpg"
                     alt="Pemandangan Desa"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg h-48 transform hover:scale-105 transition duration-500">
                   <img
-                    src="https://images.unsplash.com/photo-1625246333195-24d262306213?w=800&q=80"
+                    src="pemandangan1.jpeg"
                     alt="Pertanian Desa"
                     className="w-full h-full object-cover"
                   />
@@ -115,14 +115,14 @@ export default function About() {
               <div className="space-y-4">
                 <div className="rounded-2xl overflow-hidden shadow-lg h-48 transform hover:scale-105 transition duration-500">
                   <img
-                    src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=80"
+                    src="masyarakat.png"
                     alt="Budaya Desa"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg h-64 transform hover:scale-105 transition duration-500">
                   <img
-                    src="https://images.unsplash.com/photo-1596464716127-f9a86b5b1580?w=800&q=80"
+                    src="pemandangan.jpg"
                     alt="Masyarakat Desa"
                     className="w-full h-full object-cover"
                   />
