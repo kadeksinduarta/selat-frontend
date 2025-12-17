@@ -3,8 +3,16 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { authPost } from "../utils/api";
-import { User, Mail, Lock, Eye, EyeOff, CheckCircle, XCircle } from "lucide-react";
+import { authPost } from "../../utils/api";
+import {
+  User,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
 
 export default function Register() {
   const router = useRouter();
@@ -122,10 +130,11 @@ export default function Register() {
         {/* Alert Messages */}
         {message && (
           <div
-            className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${messageType === "success"
-              ? "bg-green-50 border border-green-200"
-              : "bg-red-50 border border-red-200"
-              }`}
+            className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+              messageType === "success"
+                ? "bg-green-50 border border-green-200"
+                : "bg-red-50 border border-red-200"
+            }`}
           >
             {messageType === "success" ? (
               <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
@@ -133,8 +142,9 @@ export default function Register() {
               <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
             )}
             <p
-              className={`text-sm ${messageType === "success" ? "text-green-800" : "text-red-800"
-                }`}
+              className={`text-sm ${
+                messageType === "success" ? "text-green-800" : "text-red-800"
+              }`}
             >
               {message}
             </p>
@@ -157,8 +167,9 @@ export default function Register() {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 border ${errors.name ? "border-red-500" : "border-gray-300"
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
+                className={`block w-full pl-10 pr-3 py-3 border ${
+                  errors.name ? "border-red-500" : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
                 placeholder="Masukkan nama lengkap"
               />
             </div>
@@ -181,8 +192,9 @@ export default function Register() {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-3 py-3 border ${errors.email ? "border-red-500" : "border-gray-300"
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
+                className={`block w-full pl-10 pr-3 py-3 border ${
+                  errors.email ? "border-red-500" : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
                 placeholder="nama@example.com"
               />
             </div>
@@ -205,8 +217,9 @@ export default function Register() {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-10 py-3 border ${errors.password ? "border-red-500" : "border-gray-300"
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
+                className={`block w-full pl-10 pr-10 py-3 border ${
+                  errors.password ? "border-red-500" : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
                 placeholder="Minimal 6 karakter"
               />
               <button
@@ -240,8 +253,11 @@ export default function Register() {
                 name="password_confirmation"
                 value={form.password_confirmation}
                 onChange={handleChange}
-                className={`block w-full pl-10 pr-10 py-3 border ${errors.password_confirmation ? "border-red-500" : "border-gray-300"
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
+                className={`block w-full pl-10 pr-10 py-3 border ${
+                  errors.password_confirmation
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition`}
                 placeholder="Ulangi password"
               />
               <button
@@ -267,10 +283,11 @@ export default function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 ${isLoading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-600 hover:bg-green-700 shadow-md hover:shadow-lg"
-              }`}
+            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700 shadow-md hover:shadow-lg"
+            }`}
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">

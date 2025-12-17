@@ -1,7 +1,7 @@
 "use server";
 
 import Home from "./components/home";
-import { apiGet } from "./utils/api";
+import { apiGet } from "../utils/api";
 
 export async function getServerSideProps() {
   const products = await apiGet("products");

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
-import { apiGet } from "@/pages/utils/api";
+import { apiGet } from "@/utils/api";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 
 export default function ArticleDetail() {
@@ -21,13 +21,13 @@ export default function ArticleDetail() {
   const loadArticle = async () => {
     try {
       setLoading(true);
-      // Assuming API supports fetching by ID, but slug is passed. 
+      // Assuming API supports fetching by ID, but slug is passed.
       // If backend only supports ID, we might need to adjust or rely on [id].jsx instead of [slug].jsx
       // For now assuming the endpoint accepts the param as is (ID or slug)
       const response = await apiGet(`articles/${slug}`);
       setArticle(response.data || response);
     } catch (err) {
-      if (err.message && err.message.includes('404')) {
+      if (err.message && err.message.includes("404")) {
         // Expected error, warn only
         console.warn("Article not found (404)");
       } else {
@@ -53,7 +53,9 @@ export default function ArticleDetail() {
     return (
       <MainLayout>
         <div className="min-h-screen flex flex-col items-center justify-center text-center p-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Artikel Tidak Ditemukan</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">
+            Artikel Tidak Ditemukan
+          </h1>
           <Link
             href="/articles"
             className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -82,14 +84,28 @@ export default function ArticleDetail() {
         <div className="w-full h-64 md:h-96 relative bg-gray-200">
           {article.image ? (
             <img
-              src={article.image?.startsWith('http') ? article.image : `${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}/storage/${article.image}`}
+              src={
+                article.image?.startsWith("http")
+                  ? article.image
+                  : `${process.env.NEXT_PUBLIC_API_URL.replace(
+                      "/api",
+                      ""
+                    )}/storage/${article.image}`
+              }
               alt={article.title}
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.style.display = 'none';
-                e.target.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-gray-400', 'bg-gray-100');
-                e.target.parentElement.innerHTML = '<span class="text-4xl">📄</span>';
+                e.target.style.display = "none";
+                e.target.parentElement.classList.add(
+                  "flex",
+                  "items-center",
+                  "justify-center",
+                  "text-gray-400",
+                  "bg-gray-100"
+                );
+                e.target.parentElement.innerHTML =
+                  '<span class="text-4xl">📄</span>';
               }}
             />
           ) : (
@@ -139,7 +155,9 @@ export default function ArticleDetail() {
 
           {/* Share & Tags (Optional) */}
           <div className="mt-12 pt-8 border-t border-gray-100 flex justify-between items-center">
-            <div className="font-semibold text-gray-700">Bagikan artikel ini:</div>
+            <div className="font-semibold text-gray-700">
+              Bagikan artikel ini:
+            </div>
             <button className="p-2 rounded-full hover:bg-gray-100 transition text-gray-600">
               <Share2 size={20} />
             </button>

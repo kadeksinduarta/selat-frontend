@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { authPost } from "../utils/api";
+import { authPost } from "../../utils/api";
 import { useRouter } from "next/router";
 import Link from "next/link";
 

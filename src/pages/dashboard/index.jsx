@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../layouts/AdminLayout";
-import { apiGet, adminGet } from "../utils/api";
+import { apiGet, adminGet } from "../../utils/api";
 import { Package, FileText, Users, UserCog } from "lucide-react";
 
 export default function DashboardPage() {
@@ -61,7 +61,6 @@ export default function DashboardPage() {
       setLoading(false);
     }
   };
-
 
   if (loading) {
     return (
@@ -142,7 +141,9 @@ export default function DashboardPage() {
               >
                 <div className="p-6">
                   {/* Icon */}
-                  <div className={`${stat.lightColor} w-14 h-14 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`${stat.lightColor} w-14 h-14 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
                     <Icon className={`${stat.textColor} w-7 h-7`} />
                   </div>
 
@@ -157,7 +158,9 @@ export default function DashboardPage() {
                   </p>
 
                   {/* Bottom accent bar */}
-                  <div className={`${stat.color} h-1 w-0 group-hover:w-full transition-all duration-300 mt-4 rounded-full`}></div>
+                  <div
+                    className={`${stat.color} h-1 w-0 group-hover:w-full transition-all duration-300 mt-4 rounded-full`}
+                  ></div>
                 </div>
               </a>
             );
@@ -166,9 +169,12 @@ export default function DashboardPage() {
 
         {/* Welcome Section */}
         <div className="mt-8 bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg p-8 text-white">
-          <h2 className="text-2xl font-bold mb-2">Selamat Datang di Admin Panel! 👋</h2>
+          <h2 className="text-2xl font-bold mb-2">
+            Selamat Datang di Admin Panel! 👋
+          </h2>
           <p className="text-green-50">
-            Kelola produk, artikel, dan pengguna dengan mudah melalui dashboard ini.
+            Kelola produk, artikel, dan pengguna dengan mudah melalui dashboard
+            ini.
           </p>
         </div>
 
@@ -185,8 +191,12 @@ export default function DashboardPage() {
                   <Package className="text-blue-600 w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800">Tambah Produk Baru</h3>
-                  <p className="text-sm text-gray-600">Tambahkan produk ke katalog</p>
+                  <h3 className="font-semibold text-gray-800">
+                    Tambah Produk Baru
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Tambahkan produk ke katalog
+                  </p>
                 </div>
               </div>
             </a>
@@ -200,8 +210,12 @@ export default function DashboardPage() {
                   <FileText className="text-green-600 w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800">Tulis Artikel Baru</h3>
-                  <p className="text-sm text-gray-600">Buat artikel atau berita</p>
+                  <h3 className="font-semibold text-gray-800">
+                    Tulis Artikel Baru
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Buat artikel atau berita
+                  </p>
                 </div>
               </div>
             </a>

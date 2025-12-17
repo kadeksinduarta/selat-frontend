@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ArticleCard from "./ArticleCard";
-import { apiGet } from "../utils/api";
+import { apiGet } from "../../utils/api";
 import { ArrowRight } from "lucide-react";
 
 export default function ArticleList() {
@@ -53,7 +53,10 @@ export default function ArticleList() {
             className="hidden md:flex items-center gap-2 text-green-600 font-semibold hover:gap-3 transition-all group"
           >
             <span>Lihat Semua</span>
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight
+              size={20}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </Link>
         </div>
 

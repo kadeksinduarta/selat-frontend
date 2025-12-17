@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/pages/components/ProductCard";
-import { apiGet } from "@/pages/utils/api";
-import { addToCart } from "@/pages/utils/cart";
+import { apiGet } from "@/utils/api";
+import { addToCart } from "@/utils/cart";
 import { Search, Filter, SlidersHorizontal, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
@@ -40,9 +40,10 @@ export default function ProductsPage() {
 
     // Search
     if (searchTerm) {
-      result = result.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      result = result.filter(
+        (p) =>
+          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.description?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -70,7 +71,9 @@ export default function ProductsPage() {
 
       <div className="bg-green-50 py-12">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Galeri Produk Desa</h1>
+          <h1 className="text-4xl font-bold text-slate-800 mb-4 mt-15">
+            Galeri Produk Desa
+          </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Jelajahi berbagai produk unggulan hasil karya warga Desa Selat.
             Dukung ekonomi lokal dengan membeli produk asli desa kami.
@@ -82,7 +85,10 @@ export default function ProductsPage() {
         {/* Filters and Search */}
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Cari produk..."
@@ -93,7 +99,10 @@ export default function ProductsPage() {
           </div>
 
           <div className="flex items-center gap-4 w-full md:w-auto">
-            <Link href="/cart" className="relative p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition text-gray-600 hover:text-green-600">
+            <Link
+              href="/cart"
+              className="relative p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition text-gray-600 hover:text-green-600"
+            >
               <ShoppingBag size={20} />
               {/* Optional: Add badge for item count if available */}
             </Link>
@@ -130,10 +139,17 @@ export default function ProductsPage() {
           </div>
         ) : (
           <div className="text-center py-20 bg-gray-50 rounded-xl">
-            <p className="text-xl text-gray-500 font-medium">Tidak ada produk yang ditemukan</p>
-            <p className="text-gray-400 mt-2">Coba kata kunci lain atau reset filter</p>
+            <p className="text-xl text-gray-500 font-medium">
+              Tidak ada produk yang ditemukan
+            </p>
+            <p className="text-gray-400 mt-2">
+              Coba kata kunci lain atau reset filter
+            </p>
             <button
-              onClick={() => { setSearchTerm(""); setPriceSort("default"); }}
+              onClick={() => {
+                setSearchTerm("");
+                setPriceSort("default");
+              }}
               className="mt-6 text-green-600 font-semibold hover:underline"
             >
               Reset Pencarian

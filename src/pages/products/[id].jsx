@@ -3,9 +3,17 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/pages/components/ProductCard";
-import { apiGet } from "@/pages/utils/api";
-import { addToCart } from "@/pages/utils/cart";
-import { ShoppingCart, Check, AlertCircle, Minus, Plus, Truck, ShieldCheck } from "lucide-react";
+import { apiGet } from "@/utils/api";
+import { addToCart } from "@/utils/cart";
+import {
+  ShoppingCart,
+  Check,
+  AlertCircle,
+  Minus,
+  Plus,
+  Truck,
+  ShieldCheck,
+} from "lucide-react";
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -31,11 +39,12 @@ export default function ProductDetail() {
 
       // Fetch all products for "Related Products" recommendation (simple logic: exclude current)
       const allProducts = await apiGet("products");
-      const others = (Array.isArray(allProducts) ? allProducts : allProducts.data || [])
-        .filter(p => p.id !== parseInt(id))
+      const others = (
+        Array.isArray(allProducts) ? allProducts : allProducts.data || []
+      )
+        .filter((p) => p.id !== parseInt(id))
         .slice(0, 4); // Take 4 products
       setRelatedProducts(others);
-
     } catch (err) {
       console.error("Error loading product:", err);
       setError("Gagal memuat produk. Produk mungkin tidak ditemukan.");
@@ -84,10 +93,14 @@ export default function ProductDetail() {
       <MainLayout>
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center text-center p-6">
           <AlertCircle size={48} className="text-red-500 mb-4" />
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Produk Tidak Ditemukan</h1>
-          <p className="text-gray-600 mb-6">{error || "Produk yang Anda cari tidak tersedia."}</p>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">
+            Produk Tidak Ditemukan
+          </h1>
+          <p className="text-gray-600 mb-6">
+            {error || "Produk yang Anda cari tidak tersedia."}
+          </p>
           <button
-            onClick={() => router.push('/products')}
+            onClick={() => router.push("/products")}
             className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
           >
             Kembali ke Galeri
@@ -111,20 +124,22 @@ export default function ProductDetail() {
           <div className="max-w-7xl mx-auto px-6 py-4">
             <div className="flex items-center text-sm text-gray-500">
               <span
-                onClick={() => router.push('/')}
+                onClick={() => router.push("/")}
                 className="cursor-pointer hover:text-green-600"
               >
                 Beranda
               </span>
               <span className="mx-2">/</span>
               <span
-                onClick={() => router.push('/products')}
+                onClick={() => router.push("/products")}
                 className="cursor-pointer hover:text-green-600"
               >
                 Produk
               </span>
               <span className="mx-2">/</span>
-              <span className="text-gray-900 font-medium truncate">{product.name}</span>
+              <span className="text-gray-900 font-medium truncate">
+                {product.name}
+              </span>
             </div>
           </div>
         </div>
@@ -136,14 +151,28 @@ export default function ProductDetail() {
               <div className="aspect-square w-full max-w-md bg-white rounded-xl shadow-sm overflow-hidden relative group">
                 {product.image ? (
                   <img
-                    src={product.image?.startsWith('http') ? product.image : `${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}/storage/${product.image}`}
+                    src={
+                      product.image?.startsWith("http")
+                        ? product.image
+                        : `${process.env.NEXT_PUBLIC_API_URL.replace(
+                            "/api",
+                            ""
+                          )}/storage/${product.image}`
+                    }
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.style.display = 'none';
-                      e.target.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-gray-400', 'bg-gray-100');
-                      e.target.parentElement.innerHTML = '<span class="text-6xl">📦</span>';
+                      e.target.style.display = "none";
+                      e.target.parentElement.classList.add(
+                        "flex",
+                        "items-center",
+                        "justify-center",
+                        "text-gray-400",
+                        "bg-gray-100"
+                      );
+                      e.target.parentElement.innerHTML =
+                        '<span class="text-6xl">📦</span>';
                     }}
                   />
                 ) : (
@@ -156,7 +185,9 @@ export default function ProductDetail() {
 
             {/* Right: Product Details */}
             <div className="p-8 md:p-12 flex flex-col">
-              <h1 className="text-3xl font-bold text-gray-800 mb-4">{product.name}</h1>
+              <h1 className="text-3xl font-bold text-gray-800 mb-4">
+                {product.name}
+              </h1>
 
               <div className="flex items-center gap-4 mb-6">
                 <div className="text-3xl font-bold text-green-600">
@@ -176,12 +207,17 @@ export default function ProductDetail() {
               </div>
 
               <div className="prose prose-slate mb-8 text-gray-600">
-                <p>{product.description || "Tidak ada deskripsi untuk produk ini."}</p>
+                <p>
+                  {product.description ||
+                    "Tidak ada deskripsi untuk produk ini."}
+                </p>
               </div>
 
               {/* Quantity Selector */}
               <div className="mb-8">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Jumlah</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Jumlah
+                </label>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center border border-gray-300 rounded-lg">
                     <button
@@ -191,7 +227,9 @@ export default function ProductDetail() {
                     >
                       <Minus size={18} />
                     </button>
-                    <div className="w-12 text-center font-medium text-gray-900">{quantity}</div>
+                    <div className="w-12 text-center font-medium text-gray-900">
+                      {quantity}
+                    </div>
                     <button
                       onClick={() => handleQuantityChange(quantity + 1)}
                       disabled={quantity >= product.stock || isOutOfStock}
@@ -242,10 +280,14 @@ export default function ProductDetail() {
           {/* Related Products */}
           {relatedProducts.length > 0 && (
             <div className="mt-16">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Produk Lainnya</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                Produk Lainnya
+              </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {relatedProducts.map(p => (
-                  <ProductCard key={p.id} product={p}
+                {relatedProducts.map((p) => (
+                  <ProductCard
+                    key={p.id}
+                    product={p}
                     onAddToCart={(prod) => {
                       addToCart(prod, 1);
                       alert("Produk ditambahkan ke keranjang!");

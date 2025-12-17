@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ArticleCard from "@/pages/components/ArticleCard";
-import { apiGet } from "@/pages/utils/api";
+import { apiGet } from "@/utils/api";
 import { ArrowRight, Search, FileText } from "lucide-react";
 
 export default function ArticlesPage() {
@@ -18,9 +18,10 @@ export default function ArticlesPage() {
   useEffect(() => {
     if (searchTerm) {
       setFilteredArticles(
-        articles.filter((a) =>
-          a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          a.content?.toLowerCase().includes(searchTerm.toLowerCase())
+        articles.filter(
+          (a) =>
+            a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            a.content?.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
     } else {
@@ -45,9 +46,12 @@ export default function ArticlesPage() {
     <MainLayout>
       <div className="bg-blue-50 py-12">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Artikel & Berita Desa</h1>
+          <h1 className="text-4xl font-bold text-slate-800 mb-4 mt-15">
+            Artikel & Berita Desa
+          </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Dapatkan informasi terbaru mengenai kegiatan, program, dan potensi Desa Selat.
+            Dapatkan informasi terbaru mengenai kegiatan, program, dan potensi
+            Desa Selat.
           </p>
         </div>
       </div>
@@ -56,7 +60,10 @@ export default function ArticlesPage() {
         {/* Search Bar */}
         <div className="flex justify-center mb-12">
           <div className="relative w-full max-w-lg">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Cari artikel..."
@@ -80,7 +87,9 @@ export default function ArticlesPage() {
         ) : (
           <div className="text-center py-20 bg-gray-50 rounded-xl">
             <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-xl text-gray-500 font-medium">Tidak ada artikel yang ditemukan</p>
+            <p className="text-xl text-gray-500 font-medium">
+              Tidak ada artikel yang ditemukan
+            </p>
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm("")}
