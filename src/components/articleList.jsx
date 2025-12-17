@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ArticleCard from "./ArticleCard";
-import { apiGet } from "../../utils/api";
+import { apiGet } from "../utils/api";
 import { ArrowRight } from "lucide-react";
 
 export default function ArticleList() {

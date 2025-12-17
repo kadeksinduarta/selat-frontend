@@ -1,6 +1,6 @@
 "use server";
 
-import Home from "./components/home";
+import Home from "../components/home";
 import { apiGet } from "../utils/api";
 
 export async function getServerSideProps() {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { apiGet } from "../../utils/api";
-import { addToCart } from "../../utils/cart";
+import { apiGet } from "../utils/api";
+import { addToCart } from "../utils/cart";
 import { ArrowRight } from "lucide-react";
 
 export default function ProductList() {
