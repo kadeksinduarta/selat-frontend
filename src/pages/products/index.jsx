@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
-import ProductCard from "@/pages/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { apiGet } from "@/utils/api";
 import { addToCart } from "@/utils/cart";
 import { Search, Filter, SlidersHorizontal, ShoppingBag } from "lucide-react";

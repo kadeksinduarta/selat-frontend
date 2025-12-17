@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
-import ArticleCard from "@/pages/components/ArticleCard";
+import ArticleCard from "@/components/ArticleCard";
 import { apiGet } from "@/utils/api";
 import { ArrowRight, Search, FileText } from "lucide-react";
 
