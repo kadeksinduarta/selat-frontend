@@ -1,218 +1,90 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const ADMIN_API_URL = process.env.NEXT_PUBLIC_ADMIN_API_URL;
-const AUTH_API_URL = process.env.NEXT_PUBLIC_AUTH_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL || (API_URL ? `${API_URL.replace('/api', '')}/storage` : '');
 
+/**
+ * Core request handler
+ */
+async function request(endpoint, options = {}) {
+  const { method = 'GET', data = null, token = null, isDashboard = false } = options;
+  const baseUrl = isDashboard ? `${API_URL}/dashboard` : API_URL;
+  const isFormData = data instanceof FormData;
+
+  const headers = {
+    'Accept': 'application/json',
+    ...(token && { 'Authorization': `Bearer ${token}` }),
+    ...(!isFormData && data && { 'Content-Type': 'application/json' })
+  };
+
+  const res = await fetch(`${baseUrl}/${endpoint}`, {
+    method,
+    headers,
+    body: data ? (isFormData ? data : JSON.stringify(data)) : null
+  });
+
+  if (res.status === 204) return true;
+
+  if (!res.ok) {
+    const text = await res.text();
+    let message = `API Error: ${res.status}`;
+    try {
+      const json = JSON.parse(text);
+      message = json.message || message;
+    } catch (e) {
+      message = `${res.statusText} (${res.status}) - ${text.substring(0, 100)}`;
+    }
+    throw new Error(message);
+  }
+
+  return res.json();
+}
+
+/**
+ * Modular API Modules
+ */
+export const apiAuth = {
+  post: (url, data) => request(url, { method: 'POST', data }),
+};
+
+export const apiAdmin = {
+  get: (url, token) => request(url, { token, isDashboard: true }),
+  post: (url, data, token) => request(url, { method: 'POST', data, token, isDashboard: true }),
+  put: (url, data, token) => request(url, { method: 'PUT', data, token, isDashboard: true }),
+  delete: (url, token) => request(url, { method: 'DELETE', token, isDashboard: true }),
+  postMultipart: (url, formData, token) => request(url, { method: 'POST', data: formData, token, isDashboard: true }),
+  putMultipart: (url, formData, token) => {
+    formData.append('_method', 'PUT');
+    return request(url, { method: 'POST', data: formData, token, isDashboard: true });
+  }
+};
+
+export const apiClient = {
+  get: (url, token) => request(url, { token }),
+  post: (url, data, token) => request(url, { method: 'POST', data, token }),
+  put: (url, data, token) => request(url, { method: 'PUT', data, token }),
+  delete: (url, token) => request(url, { method: 'DELETE', token }),
+};
+
+/**
+ * Compatibility Exports
+ */
 export function getStorageUrl(path) {
   if (!path) return '';
   if (path.startsWith('http')) return path;
-
-  // Ensure we don't have double slashes if path starts with /
   const cleanPath = path.startsWith('/') ? path.substring(1) : path;
-
-  if (STORAGE_URL) {
-    return `${STORAGE_URL}/${cleanPath}`;
-  }
-
-  // Extreme fallback if everything else fails
-  return `/storage/${cleanPath}`;
+  return `${STORAGE_URL}/${cleanPath}`;
 }
 
-/* ---------------------------------------------
-   Public API (No Auth)
-----------------------------------------------*/
-export async function apiGet(url) {
-  const res = await fetch(`${API_URL}/${url}`, {
-    headers: {
-      "Accept": "application/json",
-    },
-  });
-  if (!res.ok) {
-    // Attempt to read json if possible, otherwise throw error
-    const text = await res.text();
-    try {
-      const json = JSON.parse(text);
-      throw new Error(json.message || `API Error: ${res.status}`);
-    } catch (e) {
-      throw new Error(`API Error: ${res.statusText} (${res.status})`);
-    }
-  }
-  return res.json();
-}
+export const apiGet = (url) => apiClient.get(url);
+export const authPost = (url, data) => apiAuth.post(url, data);
 
-/* ---------------------------------------------
-   Auth API (Login / Register Admin)
-----------------------------------------------*/
-export async function authPost(url, data) {
-  const res = await fetch(`${AUTH_API_URL}/${url}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-}
+export const adminGet = (url, token) => apiAdmin.get(url, token);
+export const adminPost = (url, data, token) => apiAdmin.post(url, data, token);
+export const adminPut = (url, data, token) => apiAdmin.put(url, data, token);
+export const adminDelete = (url, token) => apiAdmin.delete(url, token);
+export const adminPostMultipart = (url, formData, token) => apiAdmin.postMultipart(url, formData, token);
+export const adminPutMultipart = (url, formData, token) => apiAdmin.putMultipart(url, formData, token);
 
-/* ---------------------------------------------
-   Admin API (Dashboard - with Bearer Token)
-----------------------------------------------*/
-export async function adminGet(url, token) {
-  const res = await fetch(`${ADMIN_API_URL}/${url}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-    },
-  });
-  return res.json();
-}
-
-export async function adminPost(url, data, token) {
-  const res = await fetch(`${ADMIN_API_URL}/${url}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-}
-
-export async function adminPut(url, data, token) {
-  const res = await fetch(`${ADMIN_API_URL}/${url}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-}
-
-export async function adminDelete(url, token) {
-  const res = await fetch(`${ADMIN_API_URL}/${url}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Accept": "application/json",
-    },
-  });
-
-  if (res.status === 204) {
-    return true; // Success, no content
-  }
-
-  if (!res.ok) {
-    const text = await res.text();
-    try {
-      const json = JSON.parse(text);
-      throw new Error(json.message || `API Error: ${res.status}`);
-    } catch (e) {
-      throw new Error(`API Error: ${res.statusText} (${res.status})`);
-    }
-  }
-
-  return res.json();
-}
-
-export async function adminPostMultipart(url, formData, token) {
-  const res = await fetch(`${ADMIN_API_URL}/${url}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Accept": "application/json",
-      // Content-Type header is explicitly omitted to let browser set it with boundary
-    },
-    body: formData,
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    try {
-      const json = JSON.parse(text);
-      throw new Error(json.message || `API Error: ${res.status}`);
-    } catch (e) {
-      // If parse fails, use the original error from json or generic
-      if (e.message.startsWith('API Error')) throw e;
-      throw new Error(`API Error: ${res.statusText} (${res.status}) - ${text.substring(0, 50)}...`);
-    }
-  }
-
-  return res.json();
-}
-
-export async function adminPutMultipart(url, formData, token) {
-  // Use POST with _method = PUT for Laravel if needed, or PUT directly.
-  // Laravel sometimes struggles with PUT and multipart/form-data.
-  // Using POST with _method field is safer for file uploads in Laravel.
-  formData.append('_method', 'PUT');
-
-  const res = await fetch(`${ADMIN_API_URL}/${url}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Accept": "application/json",
-    },
-    body: formData,
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    try {
-      const json = JSON.parse(text);
-      throw new Error(json.message || `API Error: ${res.status}`);
-    } catch (e) {
-      if (e.message.startsWith('API Error')) throw e;
-      throw new Error(`API Error: ${res.statusText} (${res.status}) - ${text.substring(0, 50)}...`);
-    }
-  }
-
-  return res.json();
-}
-
-/* ---------------------------------------------
-   User API (Profile, Addresses, Orders - with Bearer Token)
-----------------------------------------------*/
-export async function userGet(url, token) {
-  const res = await fetch(`${API_URL}/${url}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/json",
-    },
-  });
-  return res.json();
-}
-
-export async function userPost(url, data, token) {
-  const res = await fetch(`${API_URL}/${url}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-}
-
-export async function userPut(url, data, token) {
-  const res = await fetch(`${API_URL}/${url}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return res.json();
-}
-
-export async function userDelete(url, token) {
-  const res = await fetch(`${API_URL}/${url}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return res.json();
-}
+export const userGet = (url, token) => apiClient.get(url, token);
+export const userPost = (url, data, token) => apiClient.post(url, data, token);
+export const userPut = (url, data, token) => apiClient.put(url, data, token);
+export const userDelete = (url, token) => apiClient.delete(url, token);
