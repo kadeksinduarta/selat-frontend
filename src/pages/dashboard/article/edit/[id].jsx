@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { apiGet, getStorageUrl } from "../../../../utils/api";
+import { apiClient, apiAdmin, getStorageUrl } from "../../../../utils/api";
 import { ArrowLeft, Save } from "lucide-react";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const articles = await apiGet("articles");
+  const articles = await apiClient.get("articles");
   const article = articles.data?.find((a) => a.id === parseInt(id));
 
   if (!article) {
@@ -64,9 +64,7 @@ export default function EditArticlePage({ article }) {
         return;
       }
 
-      const { adminPutMultipart } = await import("../../../../utils/api");
-      // Use article.slug for the update URL since backend uses Route Model Binding with Slug
-      await adminPutMultipart(`articles/${article.slug}`, data, token);
+      await apiAdmin.putMultipart(`articles/${article.slug}`, data, token);
 
       alert("Artikel berhasil diperbarui!");
       router.push("/dashboard/article");

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ArticleCard from "@/components/ArticleCard";
-import { apiGet } from "@/utils/api";
+import { apiClient } from "@/utils/api";
 import { ArrowRight, Search, FileText } from "lucide-react";
 
 export default function ArticlesPage() {
@@ -31,7 +31,7 @@ export default function ArticlesPage() {
 
   const loadArticles = async () => {
     try {
-      const data = await apiGet("articles");
+      const data = await apiClient.get("articles");
       const articleList = Array.isArray(data) ? data : data.data || [];
       setArticles(articleList);
       setFilteredArticles(articleList);

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
-import { apiGet, getStorageUrl } from "@/utils/api";
+import { apiClient, getStorageUrl } from "@/utils/api";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 
 export default function ArticleDetail() {
@@ -24,7 +24,7 @@ export default function ArticleDetail() {
       // Assuming API supports fetching by ID, but slug is passed.
       // If backend only supports ID, we might need to adjust or rely on [id].jsx instead of [slug].jsx
       // For now assuming the endpoint accepts the param as is (ID or slug)
-      const response = await apiGet(`articles/${slug}`);
+      const response = await apiClient.get(`articles/${slug}`);
       setArticle(response.data || response);
     } catch (err) {
       if (err.message && err.message.includes("404")) {

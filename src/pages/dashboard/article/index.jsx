@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
-import { apiGet, getStorageUrl } from "../../../utils/api";
+import { apiClient, apiAdmin, getStorageUrl } from "../../../utils/api";
 import { MoreVertical, Plus, Edit, Trash2 } from "lucide-react";
 
 export async function getServerSideProps() {
-  const articles = await apiGet("articles");
+  const articles = await apiClient.get("articles");
   return { props: { articles } };
 }
 
@@ -27,9 +27,7 @@ export default function ArticleListPage({ articles }) {
     if (confirm("Apakah Anda yakin ingin menghapus artikel ini?")) {
       try {
         const token = localStorage.getItem("token");
-        // Import Dynamically
-        const { adminDelete } = await import("../../../utils/api");
-        await adminDelete(`articles/${slug}`, token);
+        await apiAdmin.delete(`articles/${slug}`, token);
         alert("Artikel berhasil dihapus.");
         router.reload();
       } catch (err) {

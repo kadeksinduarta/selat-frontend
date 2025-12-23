@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
-import { apiGet, getStorageUrl } from "../../../utils/api";
+import { apiClient, apiAdmin, getStorageUrl } from "../../../utils/api";
 import { MoreVertical, Plus, Edit, Trash2 } from "lucide-react";
 
 export async function getServerSideProps() {
-  const products = await apiGet("products");
+  const products = await apiClient.get("products");
   return { props: { products } };
 }
 
@@ -27,8 +27,7 @@ export default function ProductListPage({ products }) {
     if (confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
       try {
         const token = localStorage.getItem("token");
-        const { adminDelete } = await import("../../../utils/api");
-        await adminDelete(`products/${id}`, token);
+        await apiAdmin.delete(`products/${id}`, token);
         alert("Produk berhasil dihapus.");
         router.reload();
       } catch (err) {

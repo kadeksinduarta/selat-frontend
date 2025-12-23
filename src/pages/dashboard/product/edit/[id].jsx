@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { apiGet, getStorageUrl } from "../../../../utils/api";
+import { apiClient, apiAdmin, getStorageUrl } from "../../../../utils/api";
 import { ArrowLeft, Save } from "lucide-react";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const products = await apiGet("products");
+  const products = await apiClient.get("products");
   const product = products.find((p) => p.id === parseInt(id));
 
   if (!product) {
@@ -61,8 +61,7 @@ export default function EditProductPage({ product }) {
         return;
       }
 
-      const { adminPutMultipart } = await import("../../../../utils/api");
-      await adminPutMultipart(`products/${product.id}`, data, token);
+      await apiAdmin.putMultipart(`products/${product.id}`, data, token);
 
       alert("Produk berhasil diperbarui!");
       router.push("/dashboard/product");

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/components/ProductCard";
-import { apiGet } from "@/utils/api";
+import { apiClient } from "@/utils/api";
 import { addToCart } from "@/utils/cart";
 import { Search, Filter, SlidersHorizontal, ShoppingBag } from "lucide-react";
 import Link from "next/link";
@@ -24,7 +24,7 @@ export default function ProductsPage() {
 
   const loadProducts = async () => {
     try {
-      const data = await apiGet("products");
+      const data = await apiClient.get("products");
       // Ensure data is array
       const productList = Array.isArray(data) ? data : data.data || [];
       setProducts(productList);

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
-import { apiGet } from "../utils/api";
+import { apiClient } from "../utils/api";
 
 export default function Hero() {
   const [stats, setStats] = useState({
@@ -17,8 +17,8 @@ export default function Hero() {
 
   const loadStats = async () => {
     try {
-      const products = await apiGet("products");
-      const articles = await apiGet("articles");
+      const products = await apiClient.get("products");
+      const articles = await apiClient.get("articles");
 
       setStats({
         productCount: products?.length || 0,

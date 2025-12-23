@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ArticleCard from "./ArticleCard";
-import { apiGet } from "../utils/api";
+import { apiClient } from "../utils/api";
 import { ArrowRight } from "lucide-react";
 
 export default function ArticleList() {
@@ -14,7 +14,7 @@ export default function ArticleList() {
 
   const loadArticles = async () => {
     try {
-      const data = await apiGet("articles");
+      const data = await apiClient.get("articles");
       setArticles(data.data || data || []);
     } catch (error) {
       console.error("Error loading articles:", error);

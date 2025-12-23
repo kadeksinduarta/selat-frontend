@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/components/ProductCard";
-import { apiGet, getStorageUrl } from "@/utils/api";
+import { apiClient, getStorageUrl } from "@/utils/api";
 import { addToCart } from "@/utils/cart";
 import {
   ShoppingCart,
@@ -34,11 +34,11 @@ export default function ProductDetail() {
     try {
       setLoading(true);
       // Fetch current product
-      const productData = await apiGet(`products/${id}`);
+      const productData = await apiClient.get(`products/${id}`);
       setProduct(productData.data || productData); // Handle potential response structure
 
       // Fetch all products for "Related Products" recommendation (simple logic: exclude current)
-      const allProducts = await apiGet("products");
+      const allProducts = await apiClient.get("products");
       const others = (
         Array.isArray(allProducts) ? allProducts : allProducts.data || []
       )

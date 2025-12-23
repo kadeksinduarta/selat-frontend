@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { apiGet } from "../utils/api";
+import { apiClient } from "../utils/api";
 import { addToCart } from "../utils/cart";
 import { ArrowRight } from "lucide-react";
 
@@ -15,7 +15,7 @@ export default function ProductList() {
 
   const loadProducts = async () => {
     try {
-      const data = await apiGet("products");
+      const data = await apiClient.get("products");
       setProducts(data || []);
     } catch (error) {
       console.error("Error loading products:", error);

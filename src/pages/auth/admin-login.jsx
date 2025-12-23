@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { authPost } from "../../utils/api";
+import { apiAuth } from "../../utils/api";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Lock, Mail, Eye, EyeOff, Shield } from "lucide-react";
@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      const res = await authPost("admin/login", form);
+      const res = await apiAuth.post("admin/login", form);
       console.log("Admin login response:", res);
 
       if (!res.token) {
@@ -129,11 +129,10 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 ${
-              isLoading
+            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 ${isLoading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 shadow-md hover:shadow-lg"
-            }`}
+              }`}
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">

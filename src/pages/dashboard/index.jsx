@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../layouts/AdminLayout";
-import { apiGet, adminGet } from "../../utils/api";
+import { apiClient, apiAdmin } from "../../utils/api";
 import { Package, FileText, Users, UserCog } from "lucide-react";
 
 export default function DashboardPage() {
@@ -41,11 +41,11 @@ export default function DashboardPage() {
       }
 
       // Load dashboard data
-      const products = await apiGet("products");
-      const articles = await apiGet("articles");
-      const usersResponse = await adminGet("users", token);
-      const adminsResponse = await adminGet("admins", token);
-      const ordersResponse = await adminGet("transactions", token);
+      const products = await apiClient.get("products");
+      const articles = await apiClient.get("articles");
+      const usersResponse = await apiAdmin.get("users", token);
+      const adminsResponse = await apiAdmin.get("admins", token);
+      const ordersResponse = await apiAdmin.get("transactions", token);
 
       setStats({
         productCount: products.length || 0,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { authPost } from "../../utils/api";
+import { apiAuth } from "../../utils/api";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const res = await authPost("login", form);
+      const res = await apiAuth.post("login", form);
 
       if (!res.token) {
         setError(res.message || "Login gagal");

@@ -1,10 +1,10 @@
 "use server";
 
 import Home from "../components/home";
-import { apiGet } from "../utils/api";
+import { apiClient } from "../utils/api";
 
 export async function getServerSideProps() {
-  const products = await apiGet("products");
+  const products = await apiClient.get("products");
   return { props: { products } };
 }
 

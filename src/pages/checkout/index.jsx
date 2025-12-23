@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import MainLayout from "../layouts/MainLayout";
 import { getCart, getCartTotal, clearCart } from "@/utils/cart";
-import { userGet, userPost, apiGet, getStorageUrl } from "@/utils/api";
+import { apiClient, getStorageUrl } from "@/utils/api";
 import {
   MapPin,
   User,
@@ -43,7 +43,7 @@ export default function CheckoutPage() {
       if (mode === "direct" && product_id) {
         // --- DIRECT BUY MODE ---
         try {
-          const productRes = await apiGet(`products/${product_id}`);
+          const productRes = await apiClient.get(`products/${product_id}`);
           const product = productRes.data || productRes;
 
           const quantity = parseInt(qty) || 1;
@@ -94,12 +94,12 @@ export default function CheckoutPage() {
       }
 
       // Load User Profile & Address
-      const profileRes = await userGet("profile", token);
+      const profileRes = await apiClient.get("profile", token);
       const userData = profileRes.data || profileRes;
       setUser(userData);
 
       // Fetch addresses
-      const addressRes = await userGet("addresses", token);
+      const addressRes = await apiClient.get("addresses", token);
       const addressesData = addressRes.data || addressRes;
       const addresses = Array.isArray(addressesData) ? addressesData : [];
       const defaultAddress =
@@ -147,7 +147,7 @@ export default function CheckoutPage() {
       };
 
       console.log("Sending order data:", orderData);
-      const response = await userPost("checkout", orderData, token);
+      const response = await apiClient.post("checkout", orderData, token);
       console.log("Order response:", response);
 
       if (response.transaction && response.transaction.id) {

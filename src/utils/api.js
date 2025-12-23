@@ -1,9 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
-const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL || (API_URL ? `${API_URL.replace('/api', '')}/storage` : '');
+const STORAGE_URL = API_URL.replace('/api', '') + '/storage';
 
-/**
- * Core request handler
- */
 async function request(endpoint, options = {}) {
   const { method = 'GET', data = null, token = null, isDashboard = false } = options;
   const baseUrl = isDashboard ? `${API_URL}/dashboard` : API_URL;
