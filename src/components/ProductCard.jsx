@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ShoppingCart, Eye, Tag } from "lucide-react";
+import { getStorageUrl } from "../utils/api";
 
 export default function ProductCard({ product, onAddToCart }) {
     const formatCurrency = (amount) => {
@@ -37,7 +38,7 @@ export default function ProductCard({ product, onAddToCart }) {
             <Link href={`/products/${product.id}`} className="block relative h-56 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
                 {product.image ? (
                     <img
-                        src={product.image?.startsWith('http') ? product.image : `${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}/storage/${product.image}`}
+                        src={getStorageUrl(product.image)}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />

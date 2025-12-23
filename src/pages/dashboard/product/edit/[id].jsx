@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { apiGet } from "../../../../utils/api";
+import { apiGet, getStorageUrl } from "../../../../utils/api";
 import { ArrowLeft, Save } from "lucide-react";
 
 export async function getServerSideProps(context) {
@@ -173,14 +173,7 @@ export default function EditProductPage({ product }) {
                     Gambar saat ini: {product.image}
                   </p>
                   <img
-                    src={
-                      product.image.startsWith("http")
-                        ? product.image
-                        : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                            "/api",
-                            ""
-                          )}/storage/${product.image}`
-                    }
+                    src={getStorageUrl(product.image)}
                     alt="Current"
                     className="w-32 h-32 object-cover rounded-lg"
                     onError={(e) => {

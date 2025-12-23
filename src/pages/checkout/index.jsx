@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import MainLayout from "../layouts/MainLayout";
 import { getCart, getCartTotal, clearCart } from "@/utils/cart";
-import { userGet, userPost, apiGet } from "@/utils/api";
+import { userGet, userPost, apiGet, getStorageUrl } from "@/utils/api";
 import {
   MapPin,
   User,
@@ -282,12 +282,7 @@ export default function CheckoutPage() {
                         {item.image ? (
                           <img
                             src={
-                              item.image?.startsWith("http")
-                                ? item.image
-                                : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                                    "/api",
-                                    ""
-                                  )}/storage/${item.image}`
+                              getStorageUrl(item.image)
                             }
                             alt={item.name}
                             className="w-full h-full object-cover"

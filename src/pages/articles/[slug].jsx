@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
-import { apiGet } from "@/utils/api";
+import { apiGet, getStorageUrl } from "@/utils/api";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 
 export default function ArticleDetail() {
@@ -84,14 +84,7 @@ export default function ArticleDetail() {
         <div className="w-full h-64 md:h-96 relative bg-gray-200">
           {article.image ? (
             <img
-              src={
-                article.image?.startsWith("http")
-                  ? article.image
-                  : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                      "/api",
-                      ""
-                    )}/storage/${article.image}`
-              }
+              src={getStorageUrl(article.image)}
               alt={article.title}
               className="w-full h-full object-cover"
               onError={(e) => {

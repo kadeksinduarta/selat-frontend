@@ -1,6 +1,22 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const ADMIN_API_URL = process.env.NEXT_PUBLIC_ADMIN_API_URL;
 const AUTH_API_URL = process.env.NEXT_PUBLIC_AUTH_API_URL;
+const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL || (API_URL ? `${API_URL.replace('/api', '')}/storage` : '');
+
+export function getStorageUrl(path) {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+
+  // Ensure we don't have double slashes if path starts with /
+  const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+
+  if (STORAGE_URL) {
+    return `${STORAGE_URL}/${cleanPath}`;
+  }
+
+  // Extreme fallback if everything else fails
+  return `/storage/${cleanPath}`;
+}
 
 /* ---------------------------------------------
    Public API (No Auth)

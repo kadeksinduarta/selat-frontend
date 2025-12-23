@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/components/ProductCard";
-import { apiGet } from "@/utils/api";
+import { apiGet, getStorageUrl } from "@/utils/api";
 import { addToCart } from "@/utils/cart";
 import {
   ShoppingCart,
@@ -151,14 +151,7 @@ export default function ProductDetail() {
               <div className="aspect-square w-full max-w-md bg-white rounded-xl shadow-sm overflow-hidden relative group">
                 {product.image ? (
                   <img
-                    src={
-                      product.image?.startsWith("http")
-                        ? product.image
-                        : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                            "/api",
-                            ""
-                          )}/storage/${product.image}`
-                    }
+                    src={getStorageUrl(product.image)}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     onError={(e) => {

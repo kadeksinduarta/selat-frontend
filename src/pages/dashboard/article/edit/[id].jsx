@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { apiGet } from "../../../../utils/api";
+import { apiGet, getStorageUrl } from "../../../../utils/api";
 import { ArrowLeft, Save } from "lucide-react";
 
 export async function getServerSideProps(context) {
@@ -163,14 +163,7 @@ export default function EditArticlePage({ article }) {
                     Gambar saat ini: {article.image}
                   </p>
                   <img
-                    src={
-                      article.image.startsWith("http")
-                        ? article.image
-                        : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                            "/api",
-                            ""
-                          )}/storage/${article.image}`
-                    }
+                    src={getStorageUrl(article.image)}
                     alt="Current"
                     className="w-32 h-32 object-cover rounded-lg"
                     onError={(e) => {

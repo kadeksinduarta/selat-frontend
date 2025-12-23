@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
+import { getStorageUrl } from "../utils/api";
 
 export default function ArticleCard({ article }) {
     const formatDate = (dateString) => {
@@ -17,7 +18,7 @@ export default function ArticleCard({ article }) {
                 <div className="relative h-48 overflow-hidden bg-gradient-to-br from-green-100 to-blue-100">
                     {article.image ? (
                         <img
-                            src={article.image?.startsWith('http') ? article.image : `${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}/storage/${article.image}`}
+                            src={getStorageUrl(article.image)}
                             alt={article.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />

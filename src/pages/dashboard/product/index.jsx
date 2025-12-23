@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
-import { apiGet } from "../../../utils/api";
+import { apiGet, getStorageUrl } from "../../../utils/api";
 import { MoreVertical, Plus, Edit, Trash2 } from "lucide-react";
 
 export async function getServerSideProps() {
@@ -99,14 +99,7 @@ export default function ProductListPage({ products }) {
                     </td>
                     <td className="px-6 py-4">
                       <img
-                        src={
-                          product.image?.startsWith("http")
-                            ? product.image
-                            : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                                "/api",
-                                ""
-                              )}/storage/${product.image}`
-                        }
+                        src={getStorageUrl(product.image)}
                         alt={product.name}
                         className="w-16 h-16 object-cover rounded-lg"
                         onError={(e) => {
