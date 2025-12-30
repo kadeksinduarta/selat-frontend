@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
+import SEO from "@/components/SEO";
 import { apiGet, getStorageUrl } from "@/utils/api";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 
@@ -79,6 +80,13 @@ export default function ArticleDetail() {
 
   return (
     <MainLayout>
+      <SEO
+        title={article.title}
+        description={article.content ? article.content.replace(/<[^>]*>/g, '').substring(0, 160) : article.title}
+        image={article.image}
+        url={`/articles/${slug}`}
+        type="article"
+      />
       <article className="min-h-screen bg-white pb-20 pt-24">
         {/* Header Image */}
         <div className="max-w-7xl mx-auto px-6">

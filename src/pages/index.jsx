@@ -1,4 +1,5 @@
 import Home from "../components/home";
+import SEO from "../components/SEO";
 import { apiGet } from "../utils/api";
 
 export async function getServerSideProps() {
@@ -14,9 +15,11 @@ export async function getServerSideProps() {
 export default function HomePage({ products }) {
   return (
     <div>
-      <>
-        <Home products={products} />
-      </>
+      <SEO
+        title="Beranda"
+        description="Selamat Datang di Situs Resmi Desa Selat. Temukan informasi terbaru, potensi desa, dan layanan publik kami."
+      />
+      <Home products={products} />
     </div>
   );
 }

@@ -115,9 +115,12 @@ export default function ProductDetail() {
 
   return (
     <MainLayout>
-      <Head>
-        <title>{product.name} - Desa Selat</title>
-      </Head>
+      <SEO
+        title={product.name}
+        description={product.description || `Beli ${product.name} di Desa Selat. Produk berkualitas hasil karya warga desa.`}
+        image={product.image}
+        url={`/products/${product.id}`}
+      />
 
       <div className="bg-gray-50 min-h-screen pb-20">
         {/* Breadcrumb */}

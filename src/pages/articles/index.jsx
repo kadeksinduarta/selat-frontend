@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import SEO from "@/components/SEO";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ArticleCard from "@/components/ArticleCard";
 import { apiGet } from "@/utils/api";
@@ -44,6 +45,11 @@ export default function ArticlesPage() {
 
   return (
     <MainLayout>
+      <SEO
+        title="Berita & Artikel Desa"
+        description="Ikuti perkembangan terbaru, berita, dan artikel menarik seputar kegiatan dan informasi penting dari Desa Selat."
+        url="/articles"
+      />
       <div className="bg-blue-50 py-12">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold text-slate-800 mb-4 mt-15">
