@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { User, LogOut, ShoppingBag, MapPin } from "lucide-react";
+import { User, LogOut, ShoppingBag, MapPin, ShoppingCart } from "lucide-react";
+import { getCartCount } from "@/utils/cart";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -11,6 +12,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const menuRef = useRef(null);
 
   const navItems = [
@@ -33,8 +35,24 @@ export default function Navbar() {
       }
     };
 
+    // Check for cart updates
+    const updateCartCount = () => {
+      setCartCount(getCartCount());
+    };
+
+    updateCartCount();
+
+    // Listen for custom cart-updated event (we should trigger this when adding to cart)
+    window.addEventListener("cart-updated", updateCartCount);
+    // Also listen for storage events (for multi-tab support)
+    window.addEventListener("storage", updateCartCount);
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("cart-updated", updateCartCount);
+      window.removeEventListener("storage", updateCartCount);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -97,7 +115,20 @@ export default function Navbar() {
         </nav>
 
         {/* User Actions */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-4">
+          {/* Cart Icon */}
+          <Link
+            href="/cart"
+            className="relative p-2 text-gray-700 hover:bg-gray-100 rounded-full transition"
+          >
+            <ShoppingCart className="w-6 h-6" />
+            {cartCount > 0 && (
+              <span className="absolute top-0 right-0 bg-green-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white translate-x-1/4 -translate-y-1/4">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
           {user ? (
             <div className="relative" ref={menuRef}>
               <button

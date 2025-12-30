@@ -25,6 +25,9 @@ export const addToCart = (product, quantity = 1) => {
     }
 
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("cart-updated"));
+    }
     return cart;
 };
 
@@ -32,6 +35,9 @@ export const removeFromCart = (productId) => {
     const cart = getCart();
     const updatedCart = cart.filter((item) => item.id !== productId);
     localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("cart-updated"));
+    }
     return updatedCart;
 };
 
@@ -42,6 +48,9 @@ export const updateQuantity = (productId, quantity) => {
     if (item) {
         item.quantity = Math.max(1, Math.min(quantity, item.stock));
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        if (typeof window !== "undefined") {
+            window.dispatchEvent(new Event("cart-updated"));
+        }
     }
 
     return cart;
@@ -49,6 +58,9 @@ export const updateQuantity = (productId, quantity) => {
 
 export const clearCart = () => {
     localStorage.removeItem(CART_KEY);
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("cart-updated"));
+    }
     return [];
 };
 
