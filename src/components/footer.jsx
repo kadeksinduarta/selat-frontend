@@ -5,17 +5,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
         <div>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center shadow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M3 12l4-4 4 4 6-6 4 4"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+            <img src="logo-desa.png" className="w-16 h-16" alt="" />
             <div>
               <div className="font-semibold">Desa Selat</div>
               <div className="text-xs text-slate-300">

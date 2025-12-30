@@ -114,7 +114,7 @@ export default function About() {
                 </div>
                 <div className="rounded-2xl overflow-hidden shadow-lg h-64 transform hover:scale-105 transition duration-500">
                   <img
-                    src="tps-desa-selat.jpeg"
+                    src="tps.jpg"
                     alt="Masyarakat Desa"
                     className="w-full h-full object-cover"
                   />

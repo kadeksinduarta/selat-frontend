@@ -143,7 +143,7 @@ export default function ArticleListPage({ articles }) {
                               onClick={() => handleEdit(article.id)}
                               className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
                             >
-                              <Edit size={16} className="text-blue-600" />
+                              <Edit2 size={16} className="text-blue-600" />
                               Edit
                             </button>
                             <button
