@@ -47,7 +47,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="w-full fixed top-0 z-50 backdrop-blur-sm border-b border-1 border-slate-200">
+    <header className="w-full fixed top-0 z-50 bg-white/100">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
@@ -87,8 +87,8 @@ export default function Navbar() {
                 key={item.path}
                 href={item.path}
                 className={`px-4 py-2 rounded-full text-sm transition ${active
-                    ? "bg-white shadow text-slate-900 font-medium"
-                    : "text-white-700 hover:bg-white/60"
+                  ? "bg-white shadow text-slate-900 font-medium"
+                  : "text-white-700 hover:bg-white/60"
                   }`}
               >
                 {item.name}
