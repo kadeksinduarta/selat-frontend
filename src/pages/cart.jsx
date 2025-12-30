@@ -177,9 +177,6 @@ export default function CartPage() {
                                                 }
                                                 alt={item.name}
                                                 className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    e.target.style.display = "none";
-                                                }}
                                             />
                                         </div>
                                         <div className="flex-1 flex flex-col justify-between">
