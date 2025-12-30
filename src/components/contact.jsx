@@ -6,8 +6,8 @@ export default function Contact() {
         <div>
           <h3 className="text-2xl font-semibold">Hubungi Kami</h3>
           <p className="mt-2 text-slate-600">
-            Ada pertanyaan, kolaborasi, atau dukungan? Isi form di samping atau
-            kunjungi kantor desa.
+            Ada pertanyaan, kolaborasi, atau dukungan? Silakan temukan lokasi kami
+            melalui peta di samping atau kunjungi kantor desa kami.
           </p>
 
           <div className="mt-6 space-y-3 text-sm text-slate-600">
@@ -23,38 +23,17 @@ export default function Contact() {
           </div>
         </div>
 
-        <form className="space-y-4 bg-slate-50 rounded-lg p-6 shadow">
-          <div>
-            <label className="text-sm text-slate-600">Nama</label>
-            <input
-              className="mt-1 w-full rounded-md border-gray-200 p-2"
-              placeholder="Nama lengkap"
-            />
-          </div>
-          <div>
-            <label className="text-sm text-slate-600">Email</label>
-            <input
-              className="mt-1 w-full rounded-md border-gray-200 p-2"
-              placeholder="email@contoh.com"
-            />
-          </div>
-          <div>
-            <label className="text-sm text-slate-600">Pesan</label>
-            <textarea
-              className="mt-1 w-full rounded-md border-gray-200 p-2 h-28"
-              placeholder="Tulis pesan..."
-            ></textarea>
-          </div>
+        <div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31568.545572273502!2d115.3818460917763!3d-8.492750511623822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2109586efee79%3A0x5030bfbca832190!2sSelat%2C%20Kec.%20Klungkung%2C%20Kabupaten%20Klungkung%2C%20Bali!5e0!3m2!1sid!2sid!4v1767077801106!5m2!1sid!2sid"
+            className="w-full h-full min-h-[400px] rounded-2xl shadow-xl border-0"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
 
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="px-4 py-2 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-medium"
-            >
-              Kirim Pesan
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </section>
   );

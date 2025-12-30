@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { ArrowLeft, Save } from "lucide-react";
+import RichEditor from "../../../components/dashboard/RichEditor";
 
 export default function AddArticlePage() {
   const router = useRouter();
@@ -27,6 +28,13 @@ export default function AddArticlePage() {
         [name]: value,
       }));
     }
+  };
+
+  const handleEditorChange = (content) => {
+    setFormData((prev) => ({
+      ...prev,
+      content: content,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -174,13 +182,9 @@ export default function AddArticlePage() {
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Konten Artikel <span className="text-red-500">*</span>
               </label>
-              <textarea
-                name="content"
+              <RichEditor
                 value={formData.content}
-                onChange={handleChange}
-                required
-                rows="12"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition resize-none"
+                onChange={handleEditorChange}
                 placeholder="Masukkan konten artikel lengkap"
               />
             </div>

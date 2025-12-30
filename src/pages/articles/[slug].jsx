@@ -79,70 +79,72 @@ export default function ArticleDetail() {
 
   return (
     <MainLayout>
-      <article className="min-h-screen bg-white pb-20">
+      <article className="min-h-screen bg-white pb-20 pt-24">
         {/* Header Image */}
-        <div className="w-full h-64 md:h-96 relative bg-gray-200">
-          {article.image ? (
-            <img
-              src={getStorageUrl(article.image)}
-              alt={article.title}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.style.display = "none";
-                e.target.parentElement.classList.add(
-                  "flex",
-                  "items-center",
-                  "justify-center",
-                  "text-gray-400",
-                  "bg-gray-100"
-                );
-                e.target.parentElement.innerHTML =
-                  '<span class="text-4xl">📄</span>';
-              }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
-              <span className="text-4xl">📄</span>
-            </div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="w-full h-64 md:h-[500px] relative bg-gray-200 rounded-3xl overflow-hidden shadow-2xl">
+            {article.image ? (
+              <img
+                src={getStorageUrl(article.image)}
+                alt={article.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.style.display = "none";
+                  e.target.parentElement.classList.add(
+                    "flex",
+                    "items-center",
+                    "justify-center",
+                    "text-gray-400",
+                    "bg-gray-100"
+                  );
+                  e.target.parentElement.innerHTML =
+                    '<span class="text-4xl">📄</span>';
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
+                <span className="text-4xl">📄</span>
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-          <div className="absolute bottom-0 left-0 w-full p-6 md:p-12 text-white">
-            <div className="max-w-4xl mx-auto">
-              <Link
-                href="/articles"
-                className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition"
-              >
-                <ArrowLeft size={20} /> Kembali
-              </Link>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 text-shadow-lg">
-                {article.title}
-              </h1>
-              <div className="flex flex-wrap items-center gap-6 text-sm md:text-base text-white/90">
-                <div className="flex items-center gap-2">
-                  <Calendar size={18} />
-                  <span>{formatDate(article.created_at || article.date)}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <User size={18} />
-                  <span>Admin Desa</span>
-                </div>
-                {article.read_time && (
+            <div className="absolute bottom-0 left-0 w-full p-6 md:p-12 text-white">
+              <div className="max-w-4xl">
+                <Link
+                  href="/articles"
+                  className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full text-sm"
+                >
+                  <ArrowLeft size={16} /> Kembali
+                </Link>
+                <h1 className="text-2xl md:text-5xl font-bold leading-tight mb-4 text-shadow-lg break-words">
+                  {article.title}
+                </h1>
+                <div className="flex flex-wrap items-center gap-6 text-sm md:text-base text-white/90">
                   <div className="flex items-center gap-2">
-                    <Clock size={18} />
-                    <span>{article.read_time} menit baca</span>
+                    <Calendar size={18} />
+                    <span>{formatDate(article.created_at || article.date)}</span>
                   </div>
-                )}
+                  <div className="flex items-center gap-2">
+                    <User size={18} />
+                    <span>Admin Desa</span>
+                  </div>
+                  {article.read_time && (
+                    <div className="flex items-center gap-2">
+                      <Clock size={18} />
+                      <span>{article.read_time} menit baca</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="max-w-3xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-6 py-12 overflow-hidden">
           <div
-            className="prose prose-lg prose-blue max-w-none text-gray-700 leading-relaxed"
+            className="prose prose-lg prose-blue max-w-none text-gray-700 leading-relaxed break-words"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
 
