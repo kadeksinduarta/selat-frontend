@@ -22,6 +22,11 @@ export default function CheckoutPage() {
   const [address, setAddress] = useState(null);
   const [pickupDate, setPickupDate] = useState("");
 
+  // Minimal 12 hari untuk pre-order
+  const minDate = new Date();
+  minDate.setDate(minDate.getDate() + 12);
+  const minDateStr = minDate.toISOString().split("T")[0];
+
   useEffect(() => {
     if (router.isReady) {
       checkAuthAndLoadData();
@@ -228,13 +233,13 @@ export default function CheckoutPage() {
                     type="date"
                     className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
                     value={pickupDate}
-                    min={new Date().toISOString().split("T")[0]}
+                    min={minDateStr}
                     onChange={(e) => setPickupDate(e.target.value)}
                     required
                   />
                   <p className="text-xs text-gray-500">
-                    *Pastikan tanggal yang dipilih memungkinkan bagi kami untuk
-                    menyiapkan pesanan Anda.
+                    *Pesanan ini bersifat pre-order (minimal 12 hari proses).
+                    Pilih tanggal pengambilan/pengiriman setelah tanggal tersebut.
                   </p>
                 </div>
               </div>
