@@ -1,23 +1,24 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { apiGet } from "../../../../utils/api";
+import { apiGet, getStorageUrl } from "../../../../utils/api";
 import { ArrowLeft, Save } from "lucide-react";
 
 export async function getServerSideProps(context) {
-  const { id } = context.params;
-  const products = await apiGet("products");
-  const product = products.find((p) => p.id === parseInt(id));
+  try {
+    const { id } = context.params;
+    const products = await apiGet("products");
+    const product = products.find((p) => p.id === parseInt(id));
 
-  if (!product) {
-    return {
-      notFound: true,
-    };
+    if (!product) {
+      return { notFound: true };
+    }
+
+    return { props: { product } };
+  } catch (error) {
+    console.error("Error fetching product in edit page:", error);
+    return { notFound: true }; // or redirect to list
   }
-
-  return { props: { product } };
 }
 
 export default function EditProductPage({ product }) {
@@ -173,14 +174,7 @@ export default function EditProductPage({ product }) {
                     Gambar saat ini: {product.image}
                   </p>
                   <img
-                    src={
-                      product.image.startsWith("http")
-                        ? product.image
-                        : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                            "/api",
-                            ""
-                          )}/storage/${product.image}`
-                    }
+                    src={getStorageUrl(product.image)}
                     alt="Current"
                     className="w-32 h-32 object-cover rounded-lg"
                     onError={(e) => {

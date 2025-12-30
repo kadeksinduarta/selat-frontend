@@ -1,14 +1,17 @@
-"use client";
-
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
-import { apiGet } from "../../../utils/api";
+import { apiGet, getStorageUrl } from "../../../utils/api";
 import { MoreVertical, Plus, Edit, Trash2 } from "lucide-react";
 
 export async function getServerSideProps() {
-  const articles = await apiGet("articles");
-  return { props: { articles } };
+  try {
+    const articles = await apiGet("articles");
+    return { props: { articles: articles || [] } };
+  } catch (error) {
+    console.error("Error fetching articles in admin dashboard:", error);
+    return { props: { articles: [] } };
+  }
 }
 
 export default function ArticleListPage({ articles }) {
@@ -102,14 +105,7 @@ export default function ArticleListPage({ articles }) {
                     </td>
                     <td className="px-6 py-4">
                       <img
-                        src={
-                          article.image?.startsWith("http")
-                            ? article.image
-                            : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                                "/api",
-                                ""
-                              )}/storage/${article.image}`
-                        }
+                        src={getStorageUrl(article.image)}
                         alt={article.title}
                         className="w-16 h-16 object-cover rounded-lg"
                         onError={(e) => {
