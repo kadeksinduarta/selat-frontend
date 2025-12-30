@@ -17,7 +17,6 @@ export default function Navbar() {
     { name: "Beranda", path: "/" },
     { name: "Artikel", path: "/articles" },
     { name: "Produk", path: "/products" },
-    { name: "Gallery", path: "/gallery" },
   ];
 
   useEffect(() => {
