@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "@/pages/layouts/MainLayout";
 import { getCart, getCartTotal, clearCart } from "@/utils/cart";
-import { userGet, userPost, apiGet } from "@/utils/api";
+import { userGet, userPost, apiGet, getStorageUrl } from "@/utils/api";
 import {
   MapPin,
   User,
@@ -281,14 +281,7 @@ export default function CheckoutPage() {
                       <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
                         {item.image ? (
                           <img
-                            src={
-                              item.image?.startsWith("http")
-                                ? item.image
-                                : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                                    "/api",
-                                    ""
-                                  )}/storage/${item.image}`
-                            }
+                            src={getStorageUrl(item.image)}
                             alt={item.name}
                             className="w-full h-full object-cover"
                           />

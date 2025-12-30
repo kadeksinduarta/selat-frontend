@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
 import { getCart, updateQuantity, removeFromCart } from "@/utils/cart";
+import { getStorageUrl } from "@/utils/api";
 import { ArrowLeft, Trash2, Minus, Plus, ShoppingBag } from "lucide-react";
 
 export default function CartPage() {
@@ -167,14 +168,7 @@ export default function CartPage() {
                                         </div>
                                         <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                                             <img
-                                                src={
-                                                    item.image?.startsWith("http")
-                                                        ? item.image
-                                                        : `${process.env.NEXT_PUBLIC_API_URL.replace(
-                                                            "/api",
-                                                            ""
-                                                        )}/storage/${item.image}`
-                                                }
+                                                src={getStorageUrl(item.image)}
                                                 alt={item.name}
                                                 className="w-full h-full object-cover"
                                             />
