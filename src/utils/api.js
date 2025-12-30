@@ -1,5 +1,14 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
-const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL || 'http://localhost:8000/storage';
+const getBaseUrl = () => {
+  let url = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  // Jika URL tidak diakhiri dengan /api, tambahkan /api (untuk mencegah error di production)
+  if (!url.endsWith('/api') && !url.includes('/api/')) {
+    url = url.endsWith('/') ? `${url}api` : `${url}/api`;
+  }
+  return url;
+};
+
+const API_URL = getBaseUrl();
+const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL || API_URL.replace('/api', '/storage');
 
 /**
  * Helper untuk mendapatkan URL gambar dari storage Laravel
