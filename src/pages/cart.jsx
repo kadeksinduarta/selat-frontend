@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "@/pages/layouts/MainLayout";
 import { getCart, updateQuantity, removeFromCart } from "@/utils/cart";
 import { ArrowLeft, Trash2, Minus, Plus, ShoppingBag } from "lucide-react";
 
