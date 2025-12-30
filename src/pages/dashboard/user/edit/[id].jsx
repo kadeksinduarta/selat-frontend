@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
 import { ArrowLeft, Save } from "lucide-react";
@@ -58,7 +59,7 @@ export default function EditUserPage({ user }) {
         e.preventDefault();
         // TODO: Implement API call to update user
         console.log("Update user:", formData);
-        alert("User berhasil diperbarui!");
+        toast.success("User berhasil diperbarui!");
         router.push("/dashboard/user");
     };
 

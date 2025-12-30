@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { ArrowLeft, Save } from "lucide-react";
@@ -41,7 +42,7 @@ export default function AddProductPage() {
 
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Anda harus login terlebih dahulu");
+        toast.error("Anda harus login terlebih dahulu");
         router.push("/auth/admin-login");
         return;
       }
@@ -50,11 +51,11 @@ export default function AddProductPage() {
       const { adminPostMultipart } = await import("../../../utils/api");
       await adminPostMultipart("products", data, token);
 
-      alert("Produk berhasil ditambahkan!");
+      toast.success("Produk berhasil ditambahkan!");
       router.push("/dashboard/product");
     } catch (error) {
       console.error("Error adding product:", error);
-      alert("Gagal menambahkan produk");
+      toast.error("Gagal menambahkan produk");
     }
   };
 

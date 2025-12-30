@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import MainLayout from "@/pages/layouts/MainLayout";
@@ -70,7 +71,7 @@ export default function CartPage() {
 
     const handleCheckout = () => {
         if (selectedItems.length === 0) {
-            alert("Pilih minimal satu barang untuk di-checkout.");
+            toast.error("Pilih minimal satu barang untuk di-checkout.");
             return;
         }
 

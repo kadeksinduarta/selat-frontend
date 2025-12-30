@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
 import { apiGet, getStorageUrl } from "../../../../utils/api";
@@ -57,7 +58,7 @@ export default function EditProductPage({ product }) {
 
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Anda harus login terlebih dahulu");
+        toast.error("Anda harus login terlebih dahulu");
         router.push("/auth/admin-login");
         return;
       }
@@ -65,11 +66,11 @@ export default function EditProductPage({ product }) {
       const { adminPutMultipart } = await import("../../../../utils/api");
       await adminPutMultipart(`products/${product.id}`, data, token);
 
-      alert("Produk berhasil diperbarui!");
+      toast.success("Produk berhasil diperbarui!");
       router.push("/dashboard/product");
     } catch (error) {
       console.error("Error updating product:", error);
-      alert(`Gagal memperbarui produk: ${error.message}`);
+      toast.error(`Gagal memperbarui produk: ${error.message}`);
     }
   };
 

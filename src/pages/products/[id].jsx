@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
@@ -62,7 +63,7 @@ export default function ProductDetail() {
   const handleAddToCart = () => {
     if (!product) return;
     addToCart(product, quantity);
-    alert(`${quantity}x ${product.name} berhasil ditambahkan ke keranjang!`);
+    toast.success(`${quantity}x ${product.name} berhasil ditambahkan ke keranjang!`);
   };
 
   const handleBuyNow = () => {
@@ -283,7 +284,7 @@ export default function ProductDetail() {
                     product={p}
                     onAddToCart={(prod) => {
                       addToCart(prod, 1);
-                      alert("Produk ditambahkan ke keranjang!");
+                      toast.success("Produk ditambahkan ke keranjang!");
                     }}
                   />
                 ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { adminGet, adminDelete } from "../../../utils/api";
@@ -56,16 +57,16 @@ export default function UserListPage() {
         const token = localStorage.getItem("token");
         const response = await adminDelete(`users/${id}`, token);
         if (response.success) {
-          alert("User berhasil dihapus!");
+          toast.success("User berhasil dihapus!");
           checkAuthAndLoadData(); // Reload data
         } else {
-          alert(
-            "Gagal menghapus user: " + (response.message || "Unknown error")
+          toast.error(
+            response.message || "Gagal menghapus user"
           );
         }
       } catch (error) {
         console.error("Error deleting user:", error);
-        alert("Terjadi kesalahan saat menghapus user");
+        toast.error("Terjadi kesalahan saat menghapus user");
       }
     }
   };

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import ProductCard from "./ProductCard";
 import { apiGet } from "../utils/api";
 import { addToCart } from "../utils/cart";
@@ -26,7 +27,7 @@ export default function ProductList() {
 
   const handleAddToCart = (product) => {
     addToCart(product, 1);
-    alert(`${product.name} ditambahkan ke keranjang!`);
+    toast.success(`${product.name} ditambahkan ke keranjang!`);
   };
 
   if (loading) {

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import MainLayout from "@/pages/layouts/MainLayout";
 import { getCart, getCartTotal, clearCart } from "@/utils/cart";
@@ -37,7 +38,7 @@ export default function CheckoutPage() {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Silakan login terlebih dahulu untuk melakukan checkout.");
+        toast.error("Silakan login terlebih dahulu untuk melakukan checkout.");
         router.push("/auth/login?redirect=/checkout");
         return;
       }
@@ -62,7 +63,7 @@ export default function CheckoutPage() {
           setTotal(product.price * quantity);
         } catch (error) {
           console.error("Error fetching product for direct buy:", error);
-          alert("Produk tidak ditemukan.");
+          toast.error("Produk tidak ditemukan.");
           router.push("/products");
           return;
         }
@@ -87,7 +88,7 @@ export default function CheckoutPage() {
             : allItems;
 
         if (items.length === 0) {
-          alert("Tidak ada item yang dipilih untuk checkout.");
+          toast.error("Tidak ada item yang dipilih untuk checkout.");
           router.push("/cart");
           return;
         }
@@ -111,7 +112,7 @@ export default function CheckoutPage() {
         addresses.find((a) => a.is_default) || addresses[0];
 
       if (!defaultAddress) {
-        alert(
+        toast.error(
           "Mohon lengkapi alamat pengiriman di profil Anda sebelum checkout."
         );
         router.push("/profile/addresses");
@@ -131,7 +132,7 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     if (!pickupDate) {
-      alert("Mohon isi Tanggal Pengambilan/Pengiriman pesanan.");
+      toast.error("Mohon isi Tanggal Pengambilan/Pengiriman pesanan.");
       return;
     }
 
@@ -171,8 +172,8 @@ export default function CheckoutPage() {
       }
     } catch (error) {
       console.error("Checkout error:", error);
-      alert(
-        "Gagal memproses pesanan: " + (error.message || "Terjadi kesalahan")
+      toast.error(
+        error.message || "Gagal memproses pesanan. Silakan coba lagi."
       );
     } finally {
       setProcessing(false);

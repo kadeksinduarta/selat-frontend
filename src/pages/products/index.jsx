@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/components/ProductCard";
@@ -59,7 +60,7 @@ export default function ProductsPage() {
   const handleAddToCart = (product) => {
     addToCart(product, 1);
     // Could add toast notification here
-    alert(`${product.name} berhasil ditambahkan ke keranjang!`);
+    toast.success(`${product.name} berhasil ditambahkan ke keranjang!`);
   };
 
   return (

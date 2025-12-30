@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { adminGet, adminPut } from "../../../utils/api";
@@ -73,10 +74,10 @@ export default function OrderManagementPage() {
         )
       );
 
-      alert("Status pesanan berhasil diupdate!");
+      toast.success("Status pesanan berhasil diupdate!");
     } catch (error) {
       console.error("Error updating status:", error);
-      alert("Gagal mengupdate status pesanan");
+      toast.error("Gagal mengupdate status pesanan");
     }
   };
 
@@ -155,21 +156,20 @@ export default function OrderManagementPage() {
                   <button
                     key={status}
                     onClick={() => setStatusFilter(status)}
-                    className={`px-4 py-2 rounded-lg font-medium transition ${
-                      statusFilter === status
+                    className={`px-4 py-2 rounded-lg font-medium transition ${statusFilter === status
                         ? "bg-green-600 text-white"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                      }`}
                   >
                     {status === "all"
                       ? "Semua"
                       : status === "pending"
-                      ? "Pending"
-                      : status === "processing"
-                      ? "Diproses"
-                      : status === "completed"
-                      ? "Selesai"
-                      : "Dibatalkan"}
+                        ? "Pending"
+                        : status === "processing"
+                          ? "Diproses"
+                          : status === "completed"
+                            ? "Selesai"
+                            : "Dibatalkan"}
                   </button>
                 )
               )}

@@ -8,7 +8,7 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
-import { userGet } from "../../utils/api";
+import { userGet, getStorageUrl } from "../../utils/api";
 
 export default function OrdersPage() {
   const router = useRouter();
@@ -129,11 +129,10 @@ export default function OrdersPage() {
               <button
                 key={tab.value}
                 onClick={() => setFilter(tab.value)}
-                className={`px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${
-                  filter === tab.value
+                className={`px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${filter === tab.value
                     ? "bg-green-600 text-white"
                     : "text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
@@ -184,8 +183,16 @@ export default function OrdersPage() {
                     {order.items &&
                       order.items.map((item) => (
                         <div key={item.id} className="flex items-center gap-4">
-                          <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <Package className="w-8 h-8 text-gray-400" />
+                          <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            {item.product?.image ? (
+                              <img
+                                src={getStorageUrl(item.product.image)}
+                                alt={item.product.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Package className="w-8 h-8 text-gray-400" />
+                            )}
                           </div>
                           <div className="flex-1">
                             <h4 className="font-medium text-gray-800">

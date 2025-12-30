@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { apiGet, getStorageUrl } from "../../../utils/api";
-import { MoreVertical, Plus, Edit, Trash2 } from "lucide-react";
+import { Plus, Search, Edit2, Trash2, FileText, MoreVertical } from "lucide-react";
 
 export async function getServerSideProps() {
   try {
@@ -33,11 +34,11 @@ export default function ArticleListPage({ articles }) {
         // Import Dynamically
         const { adminDelete } = await import("../../../utils/api");
         await adminDelete(`articles/${slug}`, token);
-        alert("Artikel berhasil dihapus.");
+        toast.success("Artikel berhasil dihapus.");
         router.reload();
       } catch (err) {
         console.error("Gagal menghapus", err);
-        alert("Gagal menghapus artikel.");
+        toast.error("Gagal menghapus artikel.");
       }
     }
   };

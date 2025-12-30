@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { ArrowLeft, Save } from "lucide-react";
@@ -28,13 +29,13 @@ export default function AddAdminPage() {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
-            alert("Password tidak cocok!");
+            toast.error("Password tidak cocok!");
             return;
         }
 
         // TODO: Implement API call to add admin
         console.log("Add admin:", formData);
-        alert("Admin berhasil ditambahkan!");
+        toast.success("Admin berhasil ditambahkan!");
         router.push("/dashboard/admin");
     };
 

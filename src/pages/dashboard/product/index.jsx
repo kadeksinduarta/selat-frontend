@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../layouts/AdminLayout";
 import { apiGet, getStorageUrl } from "../../../utils/api";
-import { MoreVertical, Plus, Edit, Trash2 } from "lucide-react";
+import { Plus, Search, Edit2, Trash2, Package, MoreVertical } from "lucide-react";
 
 export async function getServerSideProps() {
   try {
@@ -32,11 +33,11 @@ export default function ProductListPage({ products }) {
         const token = localStorage.getItem("token");
         const { adminDelete } = await import("../../../utils/api");
         await adminDelete(`products/${id}`, token);
-        alert("Produk berhasil dihapus.");
+        toast.success("Produk berhasil dihapus.");
         router.reload();
       } catch (err) {
         console.error("Gagal menghapus", err);
-        alert("Gagal menghapus produk.");
+        toast.error("Gagal menghapus produk.");
       }
     }
   };

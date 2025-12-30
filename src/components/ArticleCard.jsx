@@ -11,6 +11,18 @@ export default function ArticleCard({ article }) {
         });
     };
 
+    const stripHtml = (html) => {
+        if (!html) return "";
+        return html
+            .replace(/<[^>]*>?/gm, "") // Hapus tag HTML
+            .replace(/&nbsp;/g, " ") // Ganti non-breaking space
+            .replace(/&amp;/g, "&")
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, '"')
+            .replace(/&#039;/g, "'");
+    };
+
     return (
         <Link href={`/articles/${article.slug}`}>
             <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer h-full flex flex-col">
@@ -42,7 +54,7 @@ export default function ArticleCard({ article }) {
                     </h3>
 
                     <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-1">
-                        {article.content?.substring(0, 150)}...
+                        {stripHtml(article.content).substring(0, 150)}...
                     </p>
 
                     <div className="flex items-center gap-2 text-green-600 font-semibold text-sm group-hover:gap-3 transition-all">

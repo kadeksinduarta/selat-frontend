@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
 import { ArrowLeft, Save } from "lucide-react";
@@ -51,7 +52,7 @@ export default function EditAdminPage({ admin }) {
         e.preventDefault();
         // TODO: Implement API call to update admin
         console.log("Update admin:", formData);
-        alert("Admin berhasil diperbarui!");
+        toast.success("Admin berhasil diperbarui!");
         router.push("/dashboard/admin");
     };
 

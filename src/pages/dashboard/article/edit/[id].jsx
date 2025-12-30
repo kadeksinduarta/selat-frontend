@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import AdminLayout from "../../../layouts/AdminLayout";
 import { apiGet } from "../../../../utils/api";
@@ -66,7 +67,7 @@ export default function EditArticlePage({ article }) {
 
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Anda harus login terlebih dahulu");
+        toast.error("Anda harus login terlebih dahulu");
         router.push("/auth/admin-login");
         return;
       }
@@ -75,11 +76,11 @@ export default function EditArticlePage({ article }) {
       // Use article.slug for the update URL since backend uses Route Model Binding with Slug
       await adminPutMultipart(`articles/${article.slug}`, data, token);
 
-      alert("Artikel berhasil diperbarui!");
+      toast.success("Artikel berhasil diperbarui!");
       router.push("/dashboard/article");
     } catch (error) {
       console.error("Error updating article:", error);
-      alert(`Gagal memperbarui artikel: ${error.message}`);
+      toast.error(`Gagal memperbarui artikel: ${error.message}`);
     }
   };
 
