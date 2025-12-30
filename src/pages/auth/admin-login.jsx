@@ -126,8 +126,8 @@ export default function AdminLoginPage() {
             type="submit"
             disabled={isLoading}
             className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 ${isLoading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 shadow-md hover:shadow-lg"
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 shadow-md hover:shadow-lg"
               }`}
           >
             {isLoading ? (
@@ -173,7 +173,6 @@ export default function AdminLoginPage() {
         {/* Info */}
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <p className="text-xs text-center text-gray-600">
-            <strong>Default Admin:</strong> superadmin@selat.com / desaSelat2025
           </p>
         </div>
       </div>
