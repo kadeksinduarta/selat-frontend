@@ -99,13 +99,6 @@ export default function ProductsPage() {
           </div>
 
           <div className="flex items-center gap-4 w-full md:w-auto">
-            <Link
-              href="/cart"
-              className="relative p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition text-gray-600 hover:text-green-600"
-            >
-              <ShoppingBag size={20} />
-              {/* Optional: Add badge for item count if available */}
-            </Link>
             <div className="flex items-center gap-2 text-gray-600">
               <SlidersHorizontal size={20} />
               <span className="hidden sm:inline font-medium">Urutkan:</span>
