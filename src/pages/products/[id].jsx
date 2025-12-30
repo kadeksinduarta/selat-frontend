@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import MainLayout from "@/pages/layouts/MainLayout";
+import SEO from "@/components/SEO";
 import ProductCard from "@/components/ProductCard";
 import { apiGet, getStorageUrl } from "@/utils/api";
 import { addToCart } from "@/utils/cart";

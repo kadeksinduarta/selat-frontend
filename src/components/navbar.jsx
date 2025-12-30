@@ -68,7 +68,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <img src="logo-desa.png" className="w-16 h-16" alt="" />
+          <img src="/logo-desa.png" className="w-16 h-16" alt="" />
           <div>
             <div className="text-lg font-semibold">Desa Selat</div>
             <div className="text-xs text-slate-500 -mt-1">

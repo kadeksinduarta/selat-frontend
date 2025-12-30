@@ -5,7 +5,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
         <div>
           <div className="flex items-center gap-3">
-            <img src="logo-desa.png" className="w-16 h-16" alt="" />
+            <img src="/logo-desa.png" className="w-16 h-16" alt="" />
             <div>
               <div className="font-semibold">Desa Selat</div>
               <div className="text-xs text-slate-300">
