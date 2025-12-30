@@ -46,7 +46,7 @@ const SEO = ({
             <link rel="canonical" href={seoUrl} />
 
             {/* Favicon - Ensure these exist in public folder */}
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href="/logo-desa.png" />
             {/* Optional: Add more specific social meta tags if needed */}
             {article && <meta property="article:section" content="News" />}
             {article && <meta property="article:published_time" content={article.published_at} />}
