@@ -4,8 +4,7 @@ import MainLayout from "@/pages/layouts/MainLayout";
 import ProductCard from "@/components/ProductCard";
 import { apiGet } from "@/utils/api";
 import { addToCart } from "@/utils/cart";
-import { Search, Filter, SlidersHorizontal, ShoppingBag } from "lucide-react";
-import Link from "next/link";
+import { Search, SlidersHorizontal } from "lucide-react";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -71,7 +70,7 @@ export default function ProductsPage() {
 
       <div className="bg-green-50 py-12">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4 mt-15">
+          <h1 className="text-4xl font-bold text-slate-800 mb-4 mt-16">
             Galeri Produk Desa
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
