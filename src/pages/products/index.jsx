@@ -71,7 +71,7 @@ export default function ProductsPage() {
         description="Jelajahi berbagai produk unggulan hasil karya warga Desa Selat. Dukung ekonomi lokal dengan membeli produk asli desa kami."
       />
 
-      <div className="bg-green-50 py-12">
+      <div className="py-12">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold text-slate-800 mb-4 mt-16">
             Galeri Produk Desa
