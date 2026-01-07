@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import SEO from "@/components/SEO";
 import MainLayout from "@/pages/layouts/MainLayout";
 import ArticleCard from "@/components/ArticleCard";

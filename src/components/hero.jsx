@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, ShoppingBag, BookOpen, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  ShoppingBag,
+  BookOpen,
+  Users,
+} from "lucide-react";
 import { apiGet } from "@/utils/api";
 
 export default function Hero() {
@@ -71,8 +77,12 @@ export default function Hero() {
           <p className="text-lg md:text-2xl text-white/80 mb-12 max-w-3xl leading-relaxed font-light animate-slide-up animation-delay-300">
             Harmoni alam dan budaya di kaki gunung Agung. Jelajahi kekayaan
             <span className="text-green-400 font-medium"> produk lokal</span>,
-            selami <span className="text-emerald-400 font-medium"> kisah komunitas</span>,
-            dan temukan keajaiban di setiap sudut desa kami.
+            selami{" "}
+            <span className="text-emerald-400 font-medium">
+              {" "}
+              kisah komunitas
+            </span>
+            , dan temukan keajaiban di setiap sudut desa kami.
           </p>
 
           {/* Actions */}
@@ -91,7 +101,7 @@ export default function Hero() {
               className="px-10 py-5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1 active:scale-95"
             >
               <BookOpen className="w-5 h-5" />
-              <span>Warta Desa</span>
+              <span>Article Desa</span>
             </Link>
           </div>
 
@@ -119,23 +129,46 @@ export default function Hero() {
 
       <style jsx global>{`
         @keyframes subtle-zoom {
-          from { transform: scale(1.05); }
-          to { transform: scale(1.15); }
+          from {
+            transform: scale(1.05);
+          }
+          to {
+            transform: scale(1.15);
+          }
         }
         @keyframes slide-up {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes fade-in-down {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         .animate-subtle-zoom {
-          animation: subtle-zoom 20s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+          animation: subtle-zoom 20s infinite alternate
+            cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
         .animate-slide-up {
           animation: slide-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -146,9 +179,15 @@ export default function Hero() {
         .animate-fade-in-up {
           animation: fade-in-up 0.8s ease-out forwards;
         }
-        .animation-delay-300 { animation-delay: 300ms; }
-        .animation-delay-600 { animation-delay: 600ms; }
-        .animation-delay-900 { animation-delay: 900ms; }
+        .animation-delay-300 {
+          animation-delay: 300ms;
+        }
+        .animation-delay-600 {
+          animation-delay: 600ms;
+        }
+        .animation-delay-900 {
+          animation-delay: 900ms;
+        }
       `}</style>
     </section>
   );
@@ -161,7 +200,8 @@ function StatCard({ icon, value, label, suffix = "" }) {
         {icon}
       </div>
       <div className="text-3xl md:text-4xl font-black text-white mb-1">
-        {value}{suffix}
+        {value}
+        {suffix}
       </div>
       <div className="text-sm font-medium text-white/50 uppercase tracking-widest">
         {label}
